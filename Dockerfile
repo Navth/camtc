@@ -2,11 +2,15 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN mkdir -p /app/camtc
 
-COPY . .
-RUN pip install -e .
+COPY requirements.txt /app/camtc/requirements.txt
+RUN pip install --no-cache-dir -r /app/camtc/requirements.txt
+
+COPY . /app/camtc
+
+# Ensure the camtc package is resolvable from /app
+ENV PYTHONPATH=/app
 
 EXPOSE 8000 8080
 
