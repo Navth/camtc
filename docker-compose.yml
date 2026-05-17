@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  gateway:
+    build: .
+    command: python -m camtc.main --train --gateway-port 8000 --dashboard-port 8080
+    ports:
+      - "8000:8000"
+      - "8080:8080"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - N_VALIDATORS=10
+      - SEED=42
+    volumes:
+      - ./data:/app/data
